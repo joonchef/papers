@@ -95,3 +95,66 @@ k-means와 spectral 클러스터링에 대해 ID숫자와 C가 비슷한 경우 
 (c) 클러스터에서, 서로 다른 인물의 3장의 이미지가 다수의 사진이 있는 인물(Walter Mondale)과 그룹화됐다. 반면에 (d)클러스터에서는 1명에 대한 2장의 이미지가 다수의 사진이 있는 인물(Michael Douglas)과 그룹화 되었다.
 ## Approximation Performance
 클러스터링 정확도와 실행 시간 측면에서 k-NN 근사법의 성능을 평가한다. 전체 k-NN 그래프를 계산하기위한 두 가지 근사법을 고려하고 모든 쌍 비교를 수행하는 brute-force방식과 그 성능을 비교한다. 전체 LFW 데이터셋과 여기에 백만개의 unlabeled webface를 더한 데이터셋 각각에 대한 세가지 NN 계산 method의 결과가 표 에 나와있다. 실제로, randomized k-d 트리 방법("Optimised kd-trees for fast image descriptor matching")은 3 가지 방법 중 가장 좋은 실행 시간과 최상의 클러스터링 정확도를 달성했다.
+This is a surprising result, since an approximation method
+would generally be expected to give less accurate results than
+the process it is approximating;
+근사법은 일반적으로 근사 된 방법 보다 정확도가 떨어질 것으로 예상되기 때문에 이는 놀라운 결과이다.
+ however, since our objective is
+to perform clustering based on the nearest neighbor lists, rather
+than simply find the exact k nearest neighbors for each item, this
+counter-intuitive result can be explained as follows.
+그러나 우리의 목적은 각 항목에 대해 정확한 k개의 가장 가까운 이웃을 단순히 찾는 것이 아니라, NN리스트를 기반으로 클러스터링을 수행하는 것이기 때문에 이 반 직관적 인 결과는 다음과 같이 설명 할 수 있다.
+Figure 8 plots the number of times (each face in the LFW dataset occurs in the top 200 nearest neighbor list of every face in the dataset).
+그림 8은 LFW의 데이터셋에 있는 각 얼굴이 다른 모든 얼굴의 200위 내의 NN리스트에 몇번 등장하는지 나타낸다.
+For the exact nearest neighbors, there are a number of face images which occur very frequently in the nearest neighbor lists (up to over half of all nearest neighbor lists), while for the approximate nearest neighbors these faces occur less frequently. 
+정밀한 NN에 대해, NN리스트들 (모든 가장 가까운 이웃리스트들의 절반 이상)에서 매우 자주 발생하는 다수의 얼굴 이미지들이 있고, 가장 가까운 이웃들에 대해서는 이러한 얼굴들이 덜 자주 발생한다.
+From the perspective of clustering based on the nearest neighbor lists, the lists computed
+from the randomized k-d tree approximation actually form more
+discriminative features, since certain faces are not present in very
+large fractions of the nearest neighbor lists, as is the case with the
+exact nearest neighbors.
+
+    가장 가까운 이웃리스트에 기초한 클러스터링의 관점에서 보면, 무작위 화 된 kd 트리 근사화로부터 계산 된리스트는 실제로 정확한 얼굴의 경우와 같이 가장 가까운 이웃리스트의 매우 큰 부분에 특정 얼굴이 존재하지 않기 때문에 더 분별적인 특징을 형성한다 가장 가까운 이웃.
+	
+	
+	
+Generally, the randomized k-d tree algorithm has O(n log n)
+expected run-time for tree construction, and performing n
+searches. In practice, the FLANN implementation of the
+algorithm is parametrized with the number of randomized trees
+constructed, as well as the total number of nodes available to
+visit per search. If fixed parameters are used, the total runtime is
+indeed O(n log n); however, if either the number of indices built	
+or search size is increased with larger dataset size, the effective
+runtime of the algorithm will increase. In practice, we construct 4
+trees per index (and have found little impact from using slightly
+higher or lower values), but the number of nodes visited per
+search must be selected with care. One primary question is to
+determine if a fixed number of node visits per search is feasible
+for larger datasets, or if the number of nodes visited per search
+should increase with dataset size. Table 4 presents results for
+clustering based on the LFW dataset, the LFW + 1M dataset, and
+the LFW + 5M dataset, using different strategies for selecting the
+number of nodes visited per search on the LFW + 5M dataset. In
+practice, using the same number of nodes visited per search on the
+LFW + 5M dataset as was used on the LFW + 1M dataset leads to
+a drastic reduction in clustering accuracy on the larger dataset. In
+fact, even a logarithmic increase in search size leads to significant
+accuracy loss, relative to a linear increase in search size. In
+the following large-scale experiments, we therefore increase the
+search size linearly with dataset size. In practice, this means the
+run-time of the approximation algorithm cannot be considered to
+be O(n log n), since we increase the cost of each search linearly
+with the dataset size n, giving a full O(n 2 ) cost for performing n
+nearest neighbor searches.
+
+By using the randomized k-d tree algorithm for approximate
+nearest neighbor computation, with our updated clustering algorithm
+we get improved runtime in the clustering step, and also
+better clustering accuracy (compared to the baseline algorithm).
+Although we still have an O(n
+2
+) run-time for the nearest neighbor
+computation step, there is still a significant reduction in run-time,
+an improvement by a factor of 120 for the LFW+1M image dataset
+over brute-force computation.
