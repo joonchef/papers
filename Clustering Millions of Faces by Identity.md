@@ -94,3 +94,4 @@ k-means와 spectral 클러스터링에 대해 ID숫자와 C가 비슷한 경우 
 표 2에 따르면, spectral 클러스터링은 단지 LFW의 13,233 개의 얼굴 이미지에 대해서 조차도 계산시간이 현저하게 소요되는 반면, 제안 된 Rank-Order 클러스터링은 상당히 빠르다. 그림 7에 몇개의 클러스터 예가 있다. 인물의 ID 관점에서 (a)와 (b)는 pure 클러스터이고, (c)와 (d)는 impure 클러스터이다.
 (c) 클러스터에서, 서로 다른 인물의 3장의 이미지가 다수의 사진이 있는 인물(Walter Mondale)과 그룹화됐다. 반면에 (d)클러스터에서는 1명에 대한 2장의 이미지가 다수의 사진이 있는 인물(Michael Douglas)과 그룹화 되었다.
 ## Approximation Performance
+클러스터링 정확도와 실행 시간 측면에서 k-NN 근사법의 성능을 평가한다. 전체 k-NN 그래프를 계산하기위한 두 가지 근사법을 고려하고 모든 쌍 비교를 수행하는 brute-force방식과 그 성능을 비교한다. 전체 LFW 데이터셋과 여기에 백만개의 unlabeled webface를 더한 데이터셋 각각에 대한 세가지 NN 계산 method의 결과가 표 에 나와있다. 실제로, randomized k-d 트리 방법("Optimised kd-trees for fast image descriptor matching")은 3 가지 방법 중 가장 좋은 실행 시간과 최상의 클러스터링 정확도를 달성했다.
