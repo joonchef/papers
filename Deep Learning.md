@@ -49,6 +49,17 @@ Tensor : 가변 수의 축이있는 일반 그리드에 배열 된 숫자 배열
  Orthogonal Matrix : 행렬 A의 전치행렬과 행렬 A의 역행렬이 같을 때 A를 직교행렬이라 함
 	행벡터와 열벡터가 유클리드 공간의 정규직교기저를 이루는 실수 행렬
 #### Eigendecomposition (고유값분해)
- http://darkpgmr.tistory.com/105
+ http://bskyvision.com/59?category=619292
+ http://darkpgmr.tistory.com/105 
 #### Singular Value Decomposition (특이값분해)
  http://darkpgmr.tistory.com/106
+ http://bskyvision.com/251
+#### The Moore-Penrose Pseudoinverse(무어-펜로즈 의사역행렬)
+#### The Trace Operator
+ https://ko.wikipedia.org/wiki/%EB%8C%80%EA%B0%81%ED%95%A9
+#### The Determinant
+ https://ko.wikipedia.org/wiki/%ED%96%89%EB%A0%AC%EC%8B%9D
+#### Example: Principal Components Analysis
+ https://wikidocs.net/7646
+ http://darkpgmr.tistory.com/110
+ https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/
