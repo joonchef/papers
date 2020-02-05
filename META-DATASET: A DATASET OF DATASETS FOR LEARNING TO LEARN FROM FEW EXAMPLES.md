@@ -43,3 +43,24 @@ N개의 클래스와 클래스 별 k개의 샘플로 구성 된 에피소드 : N
 전체 클래스들의 집합 C를 Ctrain, Ctest의 서로소 집합으로 나눔
 각 에피소드에서 Ctrain은 meta-training(support), meta-testing(query)에 활용하고 Ctest는 few-shot learning 성능 평가에 활용
 Ctrain(support, query)를 통해 학습되는 모델을 meta-learner로 칭함
+
+#### Non-episodic Approaches to Few-shot Classification
+Ctrain에 대해 클래스당 하나의 output을 갖는 분류기를 한 번에 훈련 시킴
+k-NN과 finetune이 이에 속함
+여기서는 A CLOSER LOOK AT FEW-SHOT CLASSIFICATION의 Baseline++를 벤치마크
+
+#### Meta-Learners for Few-shot Classification
+Matching Networks (Vinyals et al., 2016), Relation Networks (Sung et al., 2018), PrototypicalNetworks (Snell et al., 2017), Model Agnostic Meta-Learning (MAML, Finn et al., 2017)
+마지막 두 모델에서 영감을 얻은 새로운 meta-learner를 소개
+
+##### Prototypical Networks
+프로토타입 네트워크는 각 클래스에 대한 프로토타입을 구성한 다음 유클리드 거리 하에서 프로토타입이 가장 가까운 클래스로 각 query example을 분류
+##### Matching Networks
+query example을 support label과의 코사인가중 선형조합으로 labeling 함
+##### Relation Networks
+거리 계산 함수에 다층 퍼셉트론 적용  
+다층 퍼셉트론은 같은 범주 또는 다른 범주의 서포트 데이터와 쿼리 데이터를 분류하는 법을 학습
+#### MAML
+
+#### Proto-MAML
+이 연구에서 제안한 meta-learner
