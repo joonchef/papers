@@ -29,10 +29,17 @@ Eleni Triantafillou∗†, Tyler Zhu†, Vincent Dumoulin†, Pascal Lamblin†,
 ImageNet과 Omniglot 처럼 구조화 하며 현실적인 클래스 불균형을 도입  
 각 작업의 클래스 수와 훈련 세트의 크기를 변화시켜 스펙트럼 전반에 걸친 모델의 견고성을 테스트
 
-### Contributions
-1) 트레이닝 및 테스트를 위한 보다 현실적이고 대규모 환경 제공
-2) 이에 대한 기존 모델들의 벤치마크 결과 취합
-3) 추가데이터, 다양한 학습 소스, pre-trained weighte, 메타러닝으로 인한 각 모델 별 장점 분석
-4) 새로운 메타러닝 모델 제안
+주요 contributions
+ 1) 트레이닝 및 테스트를 위한 보다 현실적이고 대규모 환경 제공
+ 2) 이에 대한 기존 모델들의 벤치마크 결과 취합
+ 3) 추가데이터, 다양한 학습 소스, pre-trained weighte, 메타러닝으로 인한 각 모델 별 장점 분석
+ 4) 새로운 메타러닝 모델 제안
 
 ## Background
+#### Task Formulation
+few-shot classification의 최종 목표는 N개의 클래스와 극소량의 레이블이 붙은 예제를 가진 새로운 학습 에피소드를 통해 해당 에피소드에서 다루지 않았던 example에 일반화 된 모델을 생성하는 것  
+N개의 클래스와 클래스 별 k개의 샘플로 구성 된 에피소드 : N-way, k-shot 에피소드  
+
+전체 클래스들의 집합 C를 Ctrain, Ctest의 서로소 집합으로 나눔
+각 에피소드에서 Ctrain은 meta-training(support), meta-testing(query)에 활용하고 Ctest는 few-shot learning 성능 평가에 활용
+Ctrain(support, query)를 통해 학습되는 모델을 meta-learner로 칭함
