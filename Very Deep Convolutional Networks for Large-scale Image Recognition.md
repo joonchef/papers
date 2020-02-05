@@ -1,18 +1,18 @@
-#Abstract
+# Abstract
 large-scale 이미지 인식에서 convolutional network의 깊이에 따른 효과를 조사하기 위한 작업
 3x3 convolutional 필터들을 사용하여 기존 network들의 깊이를 16, 19 레이어로 늘려서 눈에띄는 성능향상을 보여줌
 
-#ConvNet Configuration
-##Architecture
+# ConvNet Configuration
+## Architecture
 training input : 224x224 rgb
 preprocessing : rgb mean subtracting
 convolution stride : 1(fixed)
 max-pooling : 모든 conv layer뒤에 붙진 않으며 2x2 window size, 2 stride
-##Configurations
+## Configurations
 표에 잘 나와있음
 
-#Classification Framework
-##Training
+# Classification Framework
+## Training
 batch size : 256
 momentum : 0.9
 weight decay : 0.0005
@@ -29,20 +29,21 @@ image size : crop은 224x224로 고정, 원본 이미지의 가장 작은 변의
 crop image는 작은 object나 object의 일부분을 포함할 수 있음
 1) S = 384, 256
 2) S = random (Smin = 256, Smax = 512)
-##Testing
+## Testing
 image size : 원본 이미지의 가장 작은 변의 길이를 Q (S와 같을 필요는 없음)
 horizontal-flip, original의 softmax 평균을 final score로 사용
 
-##Classification Experiments
-#Single Scale Evaluation
+## Classification Experiments
+# Single Scale Evaluation
 S = Q (S가 fixed일때)
 S = (256 + 512) / 2 = 384 (S가 random[256:512]일때) => E net : 25.5%, 8.0%
-#Multi Scale Evaluation
+# Multi Scale Evaluation
 S = 256, Q = 224, 256, 288
 S = 384, Q = 352, 384, 416
 S = [256, 512], Q = 256, 384, 512 => D, E net : 24.8%, 7.5%
-#Multi-crop Evaluation
+# Multi-crop Evaluation
 S = [256, 512], Q = 256, 384, 512 => E : 24.4%, 7.1%
 
-##Conclusion
+## Conclusion
 신경망의 깊이가 깊을수록 분류정확도가 향상됨
+
